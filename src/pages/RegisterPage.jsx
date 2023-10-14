@@ -1,8 +1,10 @@
 import axios from "axios";
-import { Link } from "react-router-dom";
-import Illustration from "../assets/img/Sign up-amico.svg";
+import IllustrationRegister from "../assets/img/Sign up-amico.svg";
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import IllustrationHero from "../components/IllustrationHero";
+import ButtonLoginRegister from "../components/ButtonLoginRegister";
+import SubmitLoginRegis from "../components/SubmitLoginRegis";
 
 const LoginPage = () => {
 	const [showPass, setShowPass] = useState(false);
@@ -36,7 +38,9 @@ const LoginPage = () => {
 		e.preventDefault();
 
 		const headers = {
+			"Content-Type": "application/json",
 			"Access-Control-Allow-Origin": "*",
+			"Access-Control-Allow-Headers": "*",
 		};
 
 		await axios
@@ -47,7 +51,12 @@ const LoginPage = () => {
 					headers,
 				}
 			)
-			.then((res) => alert(res.data))
+			.then((res) => {
+				if (res.data === "berhasil") {
+					alert("Register berhasil");
+					window.location.href = "/login";
+				}
+			})
 			.catch(function (error) {
 				console.log(error);
 			});
@@ -70,6 +79,7 @@ const LoginPage = () => {
 									id="firstName"
 									className="w-full h-12 md:bg-opacity-0 bg-[#f5f3e6] border-b-2 border-[#336B6F] border-opacity-60 focus:outline-none"
 									onChange={handleChange}
+									required
 								/>
 							</div>
 							<div className="nama-belakang">
@@ -81,6 +91,7 @@ const LoginPage = () => {
 									id="lastName"
 									className="w-full h-12 md:bg-opacity-0 bg-[#f5f3e6] border-b-2 border-[#336B6F] border-opacity-60 focus:outline-none"
 									onChange={handleChange}
+									required
 								/>
 							</div>
 						</div>
@@ -93,6 +104,7 @@ const LoginPage = () => {
 								id="username"
 								className="w-full h-12 md:bg-opacity-0 bg-[#f5f3e6] border-b-2 border-[#336B6F] border-opacity-60 focus:outline-none"
 								onChange={handleChange}
+								required
 							/>
 						</div>
 						<div className="form-email">
@@ -104,6 +116,7 @@ const LoginPage = () => {
 								id="email"
 								className="w-full h-12 md:bg-opacity-0 bg-[#f5f3e6] border-b-2 border-[#336B6F] border-opacity-60 focus:outline-none"
 								onChange={handleChange}
+								required
 							/>
 						</div>
 						<div className="form-password">
@@ -123,33 +136,19 @@ const LoginPage = () => {
 								id="password"
 								className="w-full h-12 md:bg-opacity-0 bg-[#f5f3e6] border-b-2 focus:outline-none border-[#336B6F] border-opacity-60"
 								onChange={handleChange}
+								required
 							/>
 						</div>
-						<div className="form-submit">
-							<button
-								type="submit"
-								className="w-full p-4 border rounded-xl bg-[#336B6F] text-white">
-								Register
-							</button>
-						</div>
+						<SubmitLoginRegis type={"Register"} />
 					</form>
-					<div className="flex justify-center gap-1 textSignUp text-[#336B6F]">
-						<p>Have An Account?</p>
-						<Link to="/login">
-							<p className="text-[#1f4043] font-bold">Login</p>
-						</Link>
-					</div>
-				</div>
-			</div>
-			<div className="hidden h-screen col-span-7 py-8 md:block col1">
-				<div className="flex items-center justify-center h-full wrapper">
-					<img
-						src={Illustration}
-						alt="Task Illustration"
-						className="md:w-[30rem] w-[20rem]"
+					<ButtonLoginRegister
+						link={"login"}
+						text={"Have an account?"}
+						type={"Login"}
 					/>
 				</div>
 			</div>
+			<IllustrationHero img={IllustrationRegister} />
 		</div>
 	);
 };
