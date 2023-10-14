@@ -1,8 +1,10 @@
 import axios from "axios";
-import { Link } from "react-router-dom";
-import Illustration from "../assets/img/Tablet login-amico.svg";
+import IllustrationLogin from "../assets/img/Tablet login-amico.svg";
 import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import IllustrationHero from "../components/IllustrationHero";
+import ButtonLoginRegister from "../components/ButtonLoginRegister";
+import SubmitLoginRegis from "../components/SubmitLoginRegis";
 
 const LoginPage = () => {
 	const [showPass, setShowPass] = useState(false);
@@ -33,14 +35,19 @@ const LoginPage = () => {
 		e.preventDefault();
 
 		const headers = {
+			"Content-Type": "application/json",
 			"Access-Control-Allow-Origin": "*",
+			"Access-Control-Allow-Headers": "*",
 		};
 
 		await axios
 			.post("http://localhost/Task-Tracker/controller/login.php", state.data, {
 				headers,
 			})
-			.then((res) => alert(res.data))
+			.then((res) => {
+				if (res.data === "berhasil") window.location.href = "/dashboard";
+				if (res.data !== "berhasil") alert(res.data);
+			})
 			.catch(function (error) {
 				console.log(error);
 			});
@@ -48,15 +55,7 @@ const LoginPage = () => {
 
 	return (
 		<div className="container gap-2 md:mx-auto md:grid-cols-12 md:grid text-[#336B6F]">
-			<div className="hidden h-screen col-span-7 py-8 md:block col1">
-				<div className="flex items-center justify-center h-full wrapper">
-					<img
-						src={Illustration}
-						alt="Task Illustration"
-						className="md:w-[30rem] w-[20rem]"
-					/>
-				</div>
-			</div>
+			<IllustrationHero img={IllustrationLogin} />
 			<div className="h-screen col-span-5 py-8 col2">
 				<div className="flex flex-col justify-between h-full py-12 md:bg-white md:w-full wrapper-form rounded-xl">
 					<div className="logo">
@@ -74,6 +73,7 @@ const LoginPage = () => {
 								id="username"
 								className="w-full h-12 md:bg-opacity-0 bg-[#f5f3e6] border-b-2 border-[#336B6F] border-opacity-60 focus:outline-none"
 								onChange={handleChange}
+								required
 							/>
 						</div>
 						<div className="form-password">
@@ -93,23 +93,17 @@ const LoginPage = () => {
 								id="password"
 								className="w-full h-12 md:bg-opacity-0 bg-[#f5f3e6] border-b-2 focus:outline-none border-[#336B6F] border-opacity-60"
 								onChange={handleChange}
+								required
 							/>
 							<p className="mt-5 opacity-50">Forgot Password?</p>
 						</div>
-						<div className="form-submit">
-							<button
-								type="submit"
-								className="w-full p-4 border rounded-xl bg-[#336B6F] text-white">
-								Login
-							</button>
-						</div>
+						<SubmitLoginRegis type={"Login"} />
 					</form>
-					<div className="flex justify-center gap-1 textSignUp text-[#336B6F]">
-						<p>Don&apos;t Have An Account?</p>
-						<Link to="/register">
-							<p className="text-[#1f4043] font-bold">SignUp</p>
-						</Link>
-					</div>
+					<ButtonLoginRegister
+						link={"register"}
+						text={"Don't have an account?"}
+						type={"Sign Up"}
+					/>
 				</div>
 			</div>
 		</div>
