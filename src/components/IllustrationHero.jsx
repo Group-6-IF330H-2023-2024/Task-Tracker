@@ -1,6 +1,6 @@
 const IllustrationHero = (props) => {
 	return (
-		<div className="hidden h-screen col-span-7 py-8 md:block col1">
+		<div className="hidden h-screen col-span-7 py-8 xl:block col1">
 			<div className="flex items-center justify-center h-full wrapper">
 				<img
 					src={props.img}
