@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 14, 2023 at 05:13 PM
+-- Generation Time: Oct 19, 2023 at 02:23 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -31,9 +31,9 @@ CREATE TABLE `task` (
   `id` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `judul` varchar(50) NOT NULL,
-  `tanggal` date NOT NULL,
-  `deskripsi` varchar(255) NOT NULL,
-  `progress` varchar(50) NOT NULL
+  `deskripsi` varchar(100) DEFAULT NULL,
+  `status` varchar(50) NOT NULL,
+  `done` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -60,8 +60,7 @@ INSERT INTO `user` (`id`, `username`, `email`, `password`, `nama_depan`, `nama_b
 (11, 'dronedaffa', 'muhamad102dafa@gmail.com', '$2y$10$xRlARiCbjvQ/XTKiF5lkBOlzNKiKEgJJmxpbJ8AJ19eX276tuISYy', 'Muhamad', 'Dafa'),
 (13, 'temenmudut', 'udin.ahmad@gmail.com', '$2y$10$JCGk8X37mIemq0Ols3xwVePhOh9IyNYmDmpOFF28BiIijCn689SSi', 'Muhamad', 'Dafa'),
 (14, 'udinahmad123', 'Mundut.12@gmail.com', '$2y$10$HSdGIb5kQmzlgDazQ62Q3u3jPpiYKH4hhl4rTXQJYBBSjV1ToIj0m', 'Mundut', 'Mustopa'),
-(15, 'fajar456', 'fajar.ardy134@gmail.com', '$2y$10$gogYZdi1Uhf7sLAnQE10.et7SEoDvuZ5.Xyn9sWkD/8.brSLxia6W', 'Fajar', 'Ardyanto'),
-(16, 'dafa', 'dafaganteng@gmail.com', '$2y$10$sIyZ8FfK1VoTNOgS94i9LuSwhW5lMWUSigWpmU6.1v7nyl7Vbj2Qm', 'Dafa', 'Ardyanto');
+(15, 'fajar456', 'fajar.ardy134@gmail.com', '$2y$10$gogYZdi1Uhf7sLAnQE10.et7SEoDvuZ5.Xyn9sWkD/8.brSLxia6W', 'Fajar', 'Ardyanto');
 
 --
 -- Indexes for dumped tables
@@ -90,13 +89,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Constraints for dumped tables

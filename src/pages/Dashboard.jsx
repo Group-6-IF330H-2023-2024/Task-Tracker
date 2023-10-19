@@ -1,55 +1,109 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { AiOutlineFileAdd } from "react-icons/ai";
+import { AiOutlineFileAdd, AiOutlineUser } from "react-icons/ai";
 import axios from "axios";
 import TaskCard from "../components/TaskCard";
+import AddTaskModal from "../components/AddTaskModal";
+import TaskStatistics from "../components/TaskStatistics";
 
 const Dashboard = () => {
 	const [taskData, setTaskData] = useState();
+	const [count, setCount] = useState(0);
+	const [dataChange, setDataChange] = useState(true);
 
 	useEffect(() => {
-		const headers = {
-			"Content-Type": "application/json",
-			"Access-Control-Allow-Origin": "*",
-		};
-
 		axios
-			.post("http://localhost/Task-Tracker/controller/dashboard.php", {
-				headers,
+			.get(`${import.meta.env.VITE_API_URL}dashboard.php`, {
+				withCredentials: true,
 			})
 			.then((res) => {
+				if (res.data === "belum login") window.location.href = "/403";
 				setTaskData(res.data);
+				setCount(res.data[0]);
+				// console.log(res.data);
 			})
 			.catch(function (error) {
 				console.log(error);
 			});
-	}, []);
+	}, [dataChange]);
+
+	const handleOpenModal = () => {
+		const modal = document.getElementById("addTaskModal");
+		modal.classList.toggle("hidden");
+	};
+	const handleOpenAccount = () => {
+		const modal = document.getElementById("dropdownRight");
+		modal.classList.toggle("hidden");
+	};
+
+	const handleSignOut = () => {
+		axios
+			.get(`${import.meta.env.VITE_API_URL}logout.php`, {
+				withCredentials: true,
+			})
+			.then((res) => {
+				if (res.data === "sign out berhasil") window.location.href = "/login";
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+	};
 
 	return (
-		<div className="container mx-auto my-12 dashboard">
-			<div className="heading">
-				<h1 className="text-6xl">Welcome, Muhamad Dafa</h1>
+		<div className="mx-5 my-6 xl:container xl:mx-auto dashboard">
+			<AddTaskModal />
+			<div className="flex flex-col justify-between gap-2 xl:flex-row">
+				<TaskStatistics
+					count={count?.NOTSTART || 0}
+					statistic={"Not Started Yet"}
+				/>
+				<TaskStatistics
+					count={count?.INPROGRESS || 0}
+					statistic={"In Progress"}
+				/>
+				<TaskStatistics count={count?.DONE || 0} statistic={"Done"} />
 			</div>
-			<div className="p-12 mt-10 bg-white shadow-md task-list-wrapper rounded-3xl">
-				<div className="flex items-center justify-between gap-4 heading">
-					<h1 className="text-2xl">Task List</h1>
-					<div className="addbutton">
-						<Link to="/addtask">
-							<button className="flex items-center gap-2 px-2 py-2 text-green-600 duration-[50ms] bg-green-300 hover:shadow-md rounded-xl hover:border hover:border-green-600">
-								<AiOutlineFileAdd className="text-green-600" />
-								Add Task
-							</button>
-						</Link>
+			<div className="w-full p-12 mt-3 bg-white shadow-md task-list-wrapper rounded-3xl">
+				<div className="flex items-center w-full gap-2 heading">
+					<div className="account-button h-max">
+						<button
+							onClick={handleOpenAccount}
+							type="button"
+							className="flex w-full items-center gap-2 px-2 py-2
+							duration-[50ms] bg-neutral-300 hover:shadow-md rounded-xl
+							hover:border hover:border-neutral-600">
+							<AiOutlineUser className="text-neutral-600" size={30} />
+						</button>
+					</div>
+					<div className="add-button">
+						<button
+							onClick={handleOpenModal}
+							className="flex items-center gap-2 px-2 py-2 text-green-600 duration-[50ms] bg-green-300 hover:shadow-md rounded-xl hover:border hover:border-green-600">
+							<AiOutlineFileAdd className="text-green-600" size={30} />
+							Add Task
+						</button>
 					</div>
 				</div>
-				<div className="grid grid-cols-5 mt-8 text-lg task-list">
-					<div className="col-span-2">Projects</div>
-					<div className="text-center date">Due Date</div>
-					<div className="text-center progress">Progress</div>
-					<div className="text-center action">Action</div>
+				<div
+					id="dropdownRight"
+					className="z-10 hidden mt-1 divide-y rounded-lg shadow bg-neutral-300 w-44">
+					<button
+						className="w-full p-4 hover:cursor-pointer hover:bg-neutral-100"
+						onClick={handleSignOut}>
+						Keluar
+					</button>
+				</div>
+				<div className="hidden grid-cols-12 mt-6 xl:grid task-list">
+					<div className="col-span-5">Projects</div>
+					<div className="text-center done">Done</div>
+					<div className="col-span-3 text-center progress">Progress</div>
 				</div>
 				{taskData?.map((taskData, index) => (
-					<TaskCard key={index} taskData={taskData} />
+					<TaskCard
+						key={index}
+						taskData={taskData}
+						setDataChange={setDataChange}
+						dataChange={dataChange}
+					/>
 				))}
 			</div>
 		</div>
