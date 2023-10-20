@@ -1,6 +1,7 @@
 import { AiOutlineEdit, AiOutlineDelete, AiOutlineSave } from "react-icons/ai";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const TaskCard = ({ taskData, setDataChange, dataChange }) => {
 	const [editTask, setEditTask] = useState(false);
@@ -90,7 +91,7 @@ const TaskCard = ({ taskData, setDataChange, dataChange }) => {
 							type="text"
 							name="judul"
 							id="judul"
-							className="w-full px-4 py-1 text-xl text-center rounded-lg shadow-md appearance-none md:text-base xl:text-base"
+							className="w-full px-4 py-1 text-xl text-center border rounded-md shadow-md appearance-none border-slate-500 md:text-base xl:text-base"
 							value={dataBaru?.judul}
 							onChange={({ currentTarget: input }) =>
 								setDataBaru({ ...dataBaru, judul: input.value })
@@ -106,7 +107,7 @@ const TaskCard = ({ taskData, setDataChange, dataChange }) => {
 							type="text"
 							name="deskripsi"
 							id="deskripsi"
-							className="w-full px-4 py-1 mt-4 text-xl text-center rounded-lg shadow-md appearance-none md:text-base xl:text-base"
+							className="w-full px-4 py-1 mt-4 text-xl text-center border rounded-md shadow-md appearance-none border-slate-500 md:text-base xl:text-base"
 							value={dataBaru?.deskripsi}
 							onChange={({ currentTarget: input }) =>
 								setDataBaru({ ...dataBaru, deskripsi: input.value })
@@ -120,7 +121,9 @@ const TaskCard = ({ taskData, setDataChange, dataChange }) => {
 				</div>
 			</div>
 			<div className="items-center justify-center hidden xl:flex done">
-				<input
+				<motion.input
+					whileTap={{ scale: 0.8 }}
+					whileHover={{ scale: 1.1 }}
 					type="checkbox"
 					id="checkbox"
 					checked={taskData?.done}
@@ -131,7 +134,9 @@ const TaskCard = ({ taskData, setDataChange, dataChange }) => {
 			</div>
 			<div className="flex items-center justify-center col-span-3 status">
 				<div className="select-status">
-					<select
+					<motion.select
+						whileTap={{ scale: 0.8 }}
+						whileHover={{ scale: 1.1 }}
 						name="status"
 						id="status"
 						onChange={handleStatusChange}
@@ -145,32 +150,38 @@ const TaskCard = ({ taskData, setDataChange, dataChange }) => {
 						<option value="Not Started Yet">Not Started Yet</option>
 						<option value="In Progress">In Progress</option>
 						<option value="Done">Done</option>
-					</select>
+					</motion.select>
 				</div>
 			</div>
 			<div className="flex items-center justify-center col-span-2 gap-2 xl:justify-end action">
 				{editTask ? (
-					<button
-						className="px-3 py-3 bg-orange-300 hover:shadow-md rounded-xl hover:border hover:border-orange-600 duration-[50ms] flex gap-2"
+					<motion.button
+						whileTap={{ scale: 0.8 }}
+						whileHover={{ scale: 1.1 }}
+						className="px-3 py-3 bg-orange-300 hover:shadow-md rounded-xl duration-[50ms] flex gap-2"
 						type="submit"
 						onClick={saveEditData}>
 						<AiOutlineSave className="text-orange-600" />
 						<p className="text-[12px] text-orange-600">Save</p>
-					</button>
+					</motion.button>
 				) : (
-					<button
-						className="px-3 py-3 bg-orange-300 hover:shadow-md rounded-xl hover:border hover:border-orange-600 duration-[50ms]"
+					<motion.button
+						whileTap={{ scale: 0.8 }}
+						whileHover={{ scale: 1.1 }}
+						className="px-3 py-3 bg-orange-300 hover:shadow-md rounded-xl duration-[50ms]"
 						type="submit"
 						onClick={handleEditClick}>
 						<AiOutlineEdit className="text-orange-600" />
-					</button>
+					</motion.button>
 				)}
-				<button
-					className="px-3 py-3 text-white bg-red-300 hover:shadow-md rounded-xl hover:border hover:border-red-600 duration-[50ms]"
+				<motion.button
+					whileTap={{ scale: 0.8 }}
+					whileHover={{ scale: 1.1 }}
+					className="px-3 py-3 text-white bg-red-300 hover:shadow-md rounded-xl duration-[50ms]"
 					type="submit"
 					onClick={handleSubmitDelete}>
 					<AiOutlineDelete className="text-red-600" />
-				</button>
+				</motion.button>
 			</div>
 		</div>
 	);

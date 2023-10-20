@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Illustration from "../assets/img/403 Error Forbidden-amico.svg";
+import { motion } from "framer-motion";
 
 const Forbidden403 = () => {
 	return (
@@ -14,9 +15,12 @@ const Forbidden403 = () => {
 					</i>
 				</h1>
 				<Link to={"/login"}>
-					<button className="w-max p-4 border rounded-xl bg-[#336B6F] text-white">
+					<motion.button
+						whileTap={{ scale: 0.8 }}
+						whileHover={{ scale: 1.1 }}
+						className="w-max p-4 border rounded-xl bg-[#336B6F] text-white">
 						Ke Halaman Masuk
-					</button>
+					</motion.button>
 				</Link>
 			</div>
 		</div>
