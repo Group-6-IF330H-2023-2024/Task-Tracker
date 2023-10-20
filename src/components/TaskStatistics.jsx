@@ -4,6 +4,7 @@ import {
 	TbProgressCheck,
 } from "react-icons/tb";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const TaskStatistics = (props) => {
 	const [textColor, setTextColor] = useState("");
@@ -33,7 +34,11 @@ const TaskStatistics = (props) => {
 	const selectIcon = iconMapping[props.statistic];
 
 	return (
-		<div className="flex items-center justify-between w-full px-6 py-5 bg-white shadow-md xl:p-8 task-statistic rounded-3xl">
+		<motion.div
+			className="flex items-center justify-between w-full px-6 py-5 bg-white shadow-md xl:p-8 task-statistic rounded-3xl"
+			initial={{ translateY: 100, opacity: 0 }}
+			whileInView={{ translateY: 0, opacity: 100 }}
+			transition={{ duration: 1, type: "spring", delay: 0.7 }}>
 			<div className="flex items-center gap-3 heading">
 				<div
 					className="p-2 icon bg-slate-500 rounded-xl"
@@ -53,7 +58,7 @@ const TaskStatistics = (props) => {
 			<div className="value">
 				<h1 className="text-3xl">{props.count}</h1>
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 

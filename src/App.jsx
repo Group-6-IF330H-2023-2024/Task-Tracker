@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import Dashboard from "./pages/Dashboard";
 import Forbidden403 from "./pages/Forbidden403";
+import AddTask from "./pages/AddTask";
 
 function App() {
 	return (
@@ -14,6 +15,7 @@ function App() {
 				<Route path="/login" element={<LoginPage />} />
 				<Route path="/register" element={<RegisterPage />} />
 				<Route path="/dashboard" element={<Dashboard />} />
+				<Route path="/addtask" element={<AddTask />} />
 				<Route path="/403" element={<Forbidden403 />} />
 			</Routes>
 		</BrowserRouter>

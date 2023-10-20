@@ -67,7 +67,7 @@ const LoginPage = () => {
 			<div className="h-screen col-span-5 py-8 col2">
 				<div className="flex flex-col justify-between h-full py-10 xl:bg-white xl:w-full wrapper-form rounded-xl">
 					<div className="logo">
-						<h1 className="text-3xl text-center">Selamat Datang!</h1>
+						<h1 className="text-3xl text-center">Welcome Back!</h1>
 					</div>
 					<form
 						className="flex flex-col xl:px-24 px-11 gap-11"
@@ -88,7 +88,7 @@ const LoginPage = () => {
 							<label
 								htmlFor="password"
 								className="flex items-center justify-between">
-								<p>Kata sandi</p>
+								<p>Password</p>
 								{showPass ? (
 									<AiFillEye onClick={changeInputType} />
 								) : (
@@ -103,7 +103,7 @@ const LoginPage = () => {
 								onChange={handleChange}
 								required
 							/>
-							<p className="mt-5 opacity-50">Lupa kata sandi?</p>
+							<p className="mt-5 opacity-50">Forgot Password?</p>
 						</div>
 						<SubmitLoginRegis type={"Masuk"} />
 					</form>
