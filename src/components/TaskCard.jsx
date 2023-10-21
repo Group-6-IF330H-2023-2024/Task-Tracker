@@ -100,7 +100,7 @@ const TaskCard = ({ taskData, setDataChange, dataChange }) => {
 	return (
 		<div className="flex flex-col grid-cols-12 gap-4 py-4 mt-4 border border-black shadow-md xl:grid border-opacity-10 rounded-xl task-list">
 			<div className="flex items-center justify-center px-6 xl:justify-start xl:col-span-3">
-				<div className="flex flex-col w-full break-all xl:block projects-detail">
+				<div className="flex flex-col w-full break-words xl:block projects-detail">
 					{editTask ? (
 						<input
 							type="text"
@@ -180,14 +180,14 @@ const TaskCard = ({ taskData, setDataChange, dataChange }) => {
 						}}
 						value={taskData?.status}>
 						<option
-							className="bg-[#86efac] text-[#166534]"
+							className="bg-[#fdbb74] text-[#9a3412]"
 							value="Not Started Yet">
 							Not Started Yet
 						</option>
 						<option className="bg-[#67e8f9] text-[#155f75]" value="In Progress">
 							In Progress
 						</option>
-						<option className="bg-[#fdbb74] text-[#9a3412]" value="Done">
+						<option className="bg-[#86efac] text-[#166534]" value="Done">
 							Done
 						</option>
 					</motion.select>
