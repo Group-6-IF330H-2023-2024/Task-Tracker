@@ -22,7 +22,7 @@ if (isset($data['username'])) {
     $result = mysqli_stmt_get_result($stmt2);
     $row = mysqli_fetch_assoc($result);
     if ($row) {
-        echo "username or email is registered";
+        echo "username or email is already registered";
     } else {
         mysqli_stmt_execute($stmt);
         echo "berhasil";
