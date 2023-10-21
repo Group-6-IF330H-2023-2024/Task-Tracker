@@ -44,6 +44,7 @@ cd Task-Tracker
 
 npm install
 ```
+dan IMPORT database yang ada di dalam folder database ke server database kamu.
     
 ## Environment Variables
 
