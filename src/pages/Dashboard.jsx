@@ -102,7 +102,8 @@ const Dashboard = () => {
 					</button>
 				</motion.div>
 				<div className="hidden grid-cols-12 mt-6 xl:grid task-list">
-					<div className="col-span-5">Projects</div>
+					<div className="col-span-3">Projects</div>
+					<div className="col-span-3 text-center">Due Date</div>
 					<div className="text-center done">Done</div>
 					<div className="col-span-3 text-center progress">Progress</div>
 				</div>

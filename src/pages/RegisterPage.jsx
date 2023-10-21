@@ -63,7 +63,7 @@ const LoginPage = () => {
 						onSubmit={handleSubmit}>
 						<div className="flex w-full gap-6 form-name">
 							<div className="w-full nama-depan">
-								<label htmlFor="firstName">Nama Depan</label>
+								<label htmlFor="firstName">First Name</label>
 								<br />
 								<input
 									type="text"
@@ -75,7 +75,7 @@ const LoginPage = () => {
 								/>
 							</div>
 							<div className="w-full nama-belakang">
-								<label htmlFor="lastName">Nama Belakang</label>
+								<label htmlFor="lastName">Last Name</label>
 								<br />
 								<input
 									type="text"
@@ -114,7 +114,7 @@ const LoginPage = () => {
 							<label
 								htmlFor="password"
 								className="flex items-center justify-between">
-								<p>Kata Sandi</p>
+								<p>Password</p>
 								{showPass ? (
 									<AiFillEye onClick={changeInputType} />
 								) : (
@@ -130,12 +130,12 @@ const LoginPage = () => {
 								required
 							/>
 						</div>
-						<SubmitLoginRegis type={"Daftar"} />
+						<SubmitLoginRegis type={"Register"} />
 					</form>
 					<ButtonLoginRegister
 						link={"login"}
-						text={"Sudah mempunyai akun?"}
-						type={"Masuk"}
+						text={"Have an account?"}
+						type={"Log in"}
 					/>
 				</div>
 			</div>

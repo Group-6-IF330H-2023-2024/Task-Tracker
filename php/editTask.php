@@ -10,11 +10,12 @@ if (isset($data['deskripsi'])) {
 } else {
     $deskripsi = NULL;
 }
+$tanggal = $data['tanggal'];
 $judul = $data['judul'];
 
 require_once './dbconnection.php';
-$q = "UPDATE task SET judul = ?, deskripsi = ? WHERE id = ?";
+$q = "UPDATE task SET judul = ?, deskripsi = ?, tanggal = ? WHERE id = ?";
 $stmt = mysqli_prepare($conn, $q);
 
-mysqli_stmt_bind_param($stmt, 'ssi', $judul, $deskripsi, $id);
+mysqli_stmt_bind_param($stmt, 'sssi', $judul, $deskripsi, $tanggal, $id);
 mysqli_stmt_execute($stmt);

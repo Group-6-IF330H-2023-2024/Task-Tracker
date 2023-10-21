@@ -24,22 +24,36 @@ const TaskCard = ({ taskData, setDataChange, dataChange }) => {
 		}
 	}, [taskData]);
 
+	function formatDate(dateString) {
+		const date = new Date(dateString);
+
+		const options = {
+			weekday: "short",
+			year: "numeric",
+			month: "short",
+			day: "numeric",
+		};
+
+		return date.toLocaleDateString(undefined, options);
+	}
+
 	const handleEditClick = () => {
 		setEditTask(true);
 		setDataBaru({ ...taskData });
 	};
 
 	const handleSubmitDelete = async () => {
-		await axios
-			.post(`${import.meta.env.VITE_API_URL}deleteTask.php`, {
-				id: taskData?.id,
-			})
-			.then(() => {
-				setDataChange(!dataChange);
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
+		if (confirm("Are you sure want to delete task?"))
+			await axios
+				.post(`${import.meta.env.VITE_API_URL}deleteTask.php`, {
+					id: taskData?.id,
+				})
+				.then(() => {
+					setDataChange(!dataChange);
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
 	};
 
 	const handleDone = async () => {
@@ -70,35 +84,36 @@ const TaskCard = ({ taskData, setDataChange, dataChange }) => {
 			});
 	};
 
-	const saveEditData = () => {
-		axios
-			.post(`${import.meta.env.VITE_API_URL}editTask.php`, dataBaru)
-			.then(() => {
-				setDataChange(!dataChange);
-				setEditTask(false);
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
+	const saveEditData = async () => {
+		if (confirm("Are you sure want to save changes?"))
+			await axios
+				.post(`${import.meta.env.VITE_API_URL}editTask.php`, dataBaru)
+				.then(() => {
+					setDataChange(!dataChange);
+				})
+				.catch(function (error) {
+					console.log(error);
+				});
+		setEditTask(false);
 	};
 
 	return (
-		<div className="flex flex-col grid-cols-12 gap-3 py-4 mt-4 border border-black shadow-md xl:grid border-opacity-10 rounded-xl task-list">
-			<div className="flex items-center justify-center px-6 xl:col-span-5">
-				<div className="flex flex-col items-center w-full break-all xl:w-full xl:justify-center xl:block projects-detail">
+		<div className="flex flex-col grid-cols-12 gap-4 py-4 mt-4 border border-black shadow-md xl:grid border-opacity-10 rounded-xl task-list">
+			<div className="flex items-center justify-center px-6 xl:justify-start xl:col-span-3">
+				<div className="flex flex-col w-full break-all xl:block projects-detail">
 					{editTask ? (
 						<input
 							type="text"
 							name="judul"
 							id="judul"
-							className="w-full px-4 py-1 text-xl text-center border rounded-md shadow-md appearance-none border-slate-500 md:text-base xl:text-base"
+							className="px-4 py-1 text-base text-center border rounded-md shadow-md appearance-none border-slate-500 xl:text-base"
 							value={dataBaru?.judul}
 							onChange={({ currentTarget: input }) =>
 								setDataBaru({ ...dataBaru, judul: input.value })
 							}
 						/>
 					) : (
-						<h1 className="text-2xl text-center xl:text-lg xl:text-left md:text-lg">
+						<h1 className="text-2xl text-center xl:text-start xl:text-lg md:text-lg">
 							{taskData?.judul}
 						</h1>
 					)}
@@ -107,19 +122,38 @@ const TaskCard = ({ taskData, setDataChange, dataChange }) => {
 							type="text"
 							name="deskripsi"
 							id="deskripsi"
-							className="w-full px-4 py-1 mt-4 text-xl text-center border rounded-md shadow-md appearance-none border-slate-500 md:text-base xl:text-base"
+							className="px-4 py-1 mt-4 text-base text-center border rounded-md shadow-md appearance-none border-slate-500 xl:text-base"
 							value={dataBaru?.deskripsi}
 							onChange={({ currentTarget: input }) =>
 								setDataBaru({ ...dataBaru, deskripsi: input.value })
 							}
 						/>
 					) : (
-						<p className="mt-2 text-xs text-center opacity-50 xl:mt-0 xl:text-left">
+						<p className="mt-2 text-xs text-center opacity-50 xl:mt-0 xl:text-start">
 							{taskData?.deskripsi}
 						</p>
 					)}
 				</div>
 			</div>
+			<div className="flex items-center justify-center col-span-3">
+				{editTask ? (
+					<input
+						type="date"
+						name="tanggal"
+						id="tanggal"
+						className="px-4 py-1 text-base text-center border rounded-md shadow-md appearance-none border-slate-500 xl:text-base"
+						value={dataBaru?.tanggal}
+						onChange={({ currentTarget: input }) =>
+							setDataBaru({ ...dataBaru, tanggal: input.value })
+						}
+					/>
+				) : (
+					<div className="items-center justify-center xl:flex done">
+						<p>{formatDate(taskData?.tanggal)}</p>
+					</div>
+				)}
+			</div>
+
 			<div className="items-center justify-center hidden xl:flex done">
 				<motion.input
 					whileTap={{ scale: 0.8 }}
@@ -135,25 +169,31 @@ const TaskCard = ({ taskData, setDataChange, dataChange }) => {
 			<div className="flex items-center justify-center col-span-3 status">
 				<div className="select-status">
 					<motion.select
-						whileTap={{ scale: 0.8 }}
-						whileHover={{ scale: 1.1 }}
 						name="status"
 						id="status"
 						onChange={handleStatusChange}
-						className="px-3 py-1 text-xs text-center rounded-lg shadow-md appearance-none md:text-base xl:text-base hover:opacity-90 hover:cursor-pointer"
+						className="px-3 py-2 text-xs text-center rounded-lg shadow-md appearance-none xl:py-1 md:text-base xl:text-base hover:opacity-90 hover:cursor-pointer"
 						disabled={editTask ? true : false}
 						style={{
 							backgroundColor: bgColor,
 							color: textColor,
 						}}
 						value={taskData?.status}>
-						<option value="Not Started Yet">Not Started Yet</option>
-						<option value="In Progress">In Progress</option>
-						<option value="Done">Done</option>
+						<option
+							className="bg-[#86efac] text-[#166534]"
+							value="Not Started Yet">
+							Not Started Yet
+						</option>
+						<option className="bg-[#67e8f9] text-[#155f75]" value="In Progress">
+							In Progress
+						</option>
+						<option className="bg-[#fdbb74] text-[#9a3412]" value="Done">
+							Done
+						</option>
 					</motion.select>
 				</div>
 			</div>
-			<div className="flex items-center justify-center col-span-2 gap-2 xl:justify-end action">
+			<div className="flex items-center justify-center col-span-2 gap-2 px-6 xl:justify-end action">
 				{editTask ? (
 					<motion.button
 						whileTap={{ scale: 0.8 }}

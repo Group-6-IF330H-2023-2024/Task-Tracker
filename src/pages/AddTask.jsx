@@ -8,6 +8,7 @@ const AddTask = () => {
 		data: {
 			judul: "",
 			deskprisi: "",
+			tanggal: "",
 		},
 	});
 
@@ -59,7 +60,7 @@ const AddTask = () => {
 					onSubmit={handleSubmit}>
 					<div className="form-task-title">
 						<label htmlFor="judul" className="block text-center">
-							Judul Pekerjaan
+							Task Title
 						</label>
 						<br />
 						<input
@@ -74,7 +75,7 @@ const AddTask = () => {
 					</div>
 					<div className="form-task-desc">
 						<label htmlFor="deskripsi" className="block text-center">
-							Deskripsi Pekerjaan
+							Task Description
 						</label>
 						<br />
 						<input
@@ -83,6 +84,20 @@ const AddTask = () => {
 							name="deskripsi"
 							onChange={handleChange}
 							className="w-full h-8 bg-opacity-0 bg-white border-b-2 border-[#336B6F] border-opacity-60 focus:outline-none"
+						/>
+					</div>
+					<div className="form-task-date">
+						<label htmlFor="tanggal" className="block text-center">
+							Due Date
+						</label>
+						<br />
+						<input
+							type="date"
+							id="tanggal"
+							name="tanggal"
+							onChange={handleChange}
+							className="w-full h-8 bg-opacity-0 bg-white border-b-2 border-[#336B6F] border-opacity-60 focus:outline-none"
+							required
 						/>
 					</div>
 					<div className="flex gap-4 form-button">
