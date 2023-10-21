@@ -62,11 +62,11 @@ const LoginPage = () => {
 			});
 	}, []);
 	return (
-		<div className="container gap-2 xl:mx-auto xl:grid-cols-12 xl:grid text-[#336B6F]">
+		<div className="xl:container gap-2 xl:mx-auto xl:grid-cols-12 xl:grid text-[#336B6F]">
 			<IllustrationHero img={IllustrationLogin} />
 			<div className="h-screen col-span-5 py-8 col2">
 				<div className="flex flex-col justify-between h-full py-10 xl:bg-white xl:w-full wrapper-form rounded-xl">
-					<div className="logo">
+					<div className="heading">
 						<h1 className="text-3xl text-center">Welcome Back!</h1>
 					</div>
 					<form
@@ -103,14 +103,13 @@ const LoginPage = () => {
 								onChange={handleChange}
 								required
 							/>
-							<p className="mt-5 opacity-50">Forgot Password?</p>
 						</div>
-						<SubmitLoginRegis type={"Masuk"} />
+						<SubmitLoginRegis type={"Log in"} />
 					</form>
 					<ButtonLoginRegister
 						link={"register"}
-						text={"Belum mempunyai akun?"}
-						type={"Daftar"}
+						text={"Don't have an account?"}
+						type={"Register"}
 					/>
 				</div>
 			</div>

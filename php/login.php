@@ -23,10 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $_SESSION['id'] = $row['id'];
             echo 'berhasil';
         } else {
-            echo "Password salah";
+            echo "Wrong password";
         }
     } else {
-        echo "Username tidak ditemukan";
+        echo "Username not found";
     }
 } else {
     if (isset($_SESSION['username'])) {

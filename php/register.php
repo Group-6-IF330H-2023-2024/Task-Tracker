@@ -15,7 +15,6 @@ if (isset($data['username'])) {
     $q = "INSERT INTO user (username, email, password, nama_depan, nama_belakang) VALUES (?, ?, ?, ?, ?)";
     $stmt = mysqli_prepare($conn, $q);
     mysqli_stmt_bind_param($stmt, 'sssss', $username, $email, $password, $namaDpn, $namaBlkng);
-    //check if username / email exist
     $q2 = "SELECT * FROM user WHERE username = ? OR email = ?";
     $stmt2 = mysqli_prepare($conn, $q2);
     mysqli_stmt_bind_param($stmt2, 'ss', $username, $email);
@@ -23,7 +22,7 @@ if (isset($data['username'])) {
     $result = mysqli_stmt_get_result($stmt2);
     $row = mysqli_fetch_assoc($result);
     if ($row) {
-        echo "username / email sudah terdaftar";
+        echo "username or email is already registered";
     } else {
         mysqli_stmt_execute($stmt);
         echo "berhasil";

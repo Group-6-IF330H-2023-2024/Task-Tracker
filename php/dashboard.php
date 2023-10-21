@@ -35,14 +35,15 @@ if (isset($_SESSION['username'])) {
         } else {
             $deskripsi = NULL;
         }
+        $tanggal = $data['tanggal'];
         $judul = $data['judul'];
         $status = "Not Started Yet";
         $done = 0;
 
-        $qAdd = "INSERT INTO task (id_user, judul, deskripsi, status, done) VALUES (?, ?, ?, ?, ?)";
+        $qAdd = "INSERT INTO task (id_user, judul, deskripsi, tanggal,  status, done) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($conn, $qAdd);
 
-        mysqli_stmt_bind_param($stmt, 'isssi', $id_user, $judul, $deskripsi, $status, $done);
+        mysqli_stmt_bind_param($stmt, 'issssi', $id_user, $judul, $deskripsi, $tanggal, $status, $done);
         mysqli_stmt_execute($stmt);
         echo "add data berhasil";
     }
