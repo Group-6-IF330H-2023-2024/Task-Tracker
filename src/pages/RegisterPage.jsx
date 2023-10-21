@@ -34,6 +34,17 @@ const LoginPage = () => {
 		setState({ data });
 	};
 
+	axios
+		.get(`${import.meta.env.VITE_API_URL}login.php`, {
+			withCredentials: true,
+		})
+		.then((res) => {
+			if (res.data === "sudah login") window.location.href = "/dashboard";
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 

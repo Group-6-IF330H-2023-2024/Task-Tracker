@@ -1,8 +1,19 @@
 import ButtonLandingPage from "../components/ButtonLandingPage";
 import Illustration from "../assets/img/Task-cuate.svg";
 import IllustrationHero from "../components/IllustrationHero";
+import axios from "axios";
 
 const LandingPage = () => {
+	axios
+		.get(`${import.meta.env.VITE_API_URL}login.php`, {
+			withCredentials: true,
+		})
+		.then((res) => {
+			if (res.data === "sudah login") window.location.href = "/dashboard";
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
 	return (
 		<div>
 			<div className="container flex flex-col justify-center h-screen gap-4 mx-auto text-center xl:grid xl:grid-cols-2 xl:content-center xl:text-start">
