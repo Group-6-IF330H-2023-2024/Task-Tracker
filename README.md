@@ -3,7 +3,7 @@
 
 - Muhamad Dafa (00000077651) - [@muhamaddafa](https://github.com/muhamaddafa)
 - Salma Manda Putri Nabilah (00000077712) - [@salmampn](https://github.com/salmampn)
-- Pandu Aji Wicaksono (00000077651) - [@muhamaddafa](https://www.github.com/octokatherine)
+- Pandu Aji Wicaksono (00000078666) - [@muhamaddafa](https://www.github.com/octokatherine)
 - Abi Andrea Nurpasha (00000079207) - [@KingAbby](https://github.com/KingAbby)
 
 
